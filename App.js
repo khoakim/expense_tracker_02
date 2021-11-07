@@ -4,43 +4,41 @@ import {StyleSheet, Text, View, Button} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
 
-import CreateScreen from "./src/screens/CreateScreen";
-import EditScreen from "./src/screens/EditScreen";
-import ShowScreen from "./src/screens/ShowScreen";
-import IndexScreen from "./src/screens/IndexScreen";
-import ContextProvider from "./src/context/BlogContext";
+
+// pages
+import HomeScreen from './screens/HomeScreen'
+import LoginScreen from './screens/LoginScreen'
+import RegisterScreen from './screens/RegisterScreen'
+import AddScreen from './screens/AddScreen'
+import UpdateScreen from './screens/UpdateScreen'
+import AllTransactions from './screens/AllTransactions'
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const globalScreenOptions = {
+    headerStyle: {
+      backgroundColor: '#DDD5F1',
+      // backgroundColor: '#51A3B1',
+    },
+    headerTitleStyle: {
+      color: '#000000',
+    },
+    headerTintColor: 'black',
+  }
   return (
-    <ContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Index">
-          <Stack.Screen
-            name="Create"
-            component={CreateScreen}
-            options={{
-              title: "Overview",
-            }}
-          />
-          <Stack.Screen name="Edit" component={EditScreen} />
-          <Stack.Screen name="Show" component={ShowScreen} />
-          <Stack.Screen
-            name="Index"
-            component={IndexScreen}
-            options={({navigation}) => ({
-              headerTitle: (props) => <Text>Index</Text>,
-              headerRight: () => (
-                <Button
-                  onPress={() => navigation.navigate("Create")}
-                  title="Info"
-                  color="#00cc00"
-                />
-              ),
-            })}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ContextProvider>
-  );
+    <NavigationContainer>
+      <StatusBar style='dark' />
+      <Stack.Navigator screenOptions={globalScreenOptions}>
+        <Stack.Screen name='Login' component={LoginScreen} />
+        <Stack.Screen name='Register' component={RegisterScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Add' component={AddScreen} />
+        <Stack.Screen name='Update' component={UpdateScreen} />
+        <Stack.Screen name='All' component={AllTransactions} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
+
